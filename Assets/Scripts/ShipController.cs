@@ -35,7 +35,6 @@ public class ShipController : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        if (Manager.paused) Manager.togglePause();
         customRotate = new Vector3(0, -90, 0);
         collide = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -45,7 +44,6 @@ public class ShipController : MonoBehaviour
     public float speed = 1;
     private void Update()
     {
-        if (Manager.paused) return;
 
         bool up = Input.GetKey(KeyCode.UpArrow);
         bool down = Input.GetKey(KeyCode.DownArrow);

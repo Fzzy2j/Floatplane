@@ -14,7 +14,6 @@ namespace Assets.Scripts
         private static float moveTarget;
         public static void Move(float z)
         {
-            if (Manager.paused) return;
             if (!ShipController.Instance.collide)
             {
                 z *= ShipController.Instance.verticalSpeedModifier;
@@ -46,7 +45,6 @@ namespace Assets.Scripts
         private static float rotTarget;
         public static void Rotate(float speed)
         {
-            if (Manager.paused) return;
             if (!ShipController.Instance.collide)
             {
                 float boost = 15;

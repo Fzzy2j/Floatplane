@@ -14,11 +14,12 @@ public class CameraSmoothing : MonoBehaviour
 
     private void Update()
     {
-        var pos = t.position + (t.up * offset.y) + (t.forward * offset.z) + (t.right * offset.x);
-        gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, pos, cameraStiffness * Time.deltaTime * 50);
 
-        var look = Quaternion.LookRotation(t.position - gameObject.transform.position);
-        gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, look, 50f * Time.unscaledDeltaTime);
+        var pos = t.position + (t.up * offset.y) + (t.forward * offset.z) + (t.right * offset.x);
+        gameObject.transform.position = Vector3.Lerp(gameObject.transform.position, pos, cameraStiffness * Time.unscaledDeltaTime * 50);
+        
+        //var look = Quaternion.LookRotation(t.position - gameObject.transform.position);
+        gameObject.transform.rotation = Quaternion.RotateTowards(gameObject.transform.rotation, t.rotation, 100f * Time.deltaTime);
 
 
         //gameObject.transform.position = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y, t.position.z);

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.scripts;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,6 +35,7 @@ public class SlowPowerUp : MonoBehaviour
         if (other.gameObject.name.ToLower().Contains("ship"))
         {
             startTime = System.DateTime.Now.Ticks;
+            Manager.I.Player.rigidBody.AddForce(Manager.I.Player.transform.forward * 3000);
             //ShipController.Instance.addToBulletTime(slowFactor, addTime);
             Instantiate(shatter, this.transform.position, this.transform.rotation);
             this.transform.position += new Vector3(0, 100000, 0);

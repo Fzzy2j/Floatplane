@@ -11,15 +11,16 @@ namespace Assets.scripts
         public static Manager I;
         public int PlaySceneId;
 
-        public static bool paused { get; private set; }
+        public FlightControls Player = null;
 
-        private void Start()
+        private void Awake()
         {
             if (I == null)
             {
                 DontDestroyOnLoad(gameObject);
                 I = this;
-                if (!paused) Manager.togglePause();
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
             else if (I != this)
             {
@@ -68,14 +69,17 @@ namespace Assets.scripts
 
         public static void togglePause()
         {
-            paused = !paused;
-            if (paused)
+            if (Time.timeScale == 0)
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
+                Time.timeScale = 1;
+                Time.fixedDeltaTime = Time.timeScale * 0.02f;
             }
             else
             {
+                Time.timeScale = 0;
+                Time.fixedDeltaTime = Time.timeScale * 0.02f;
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
             }
@@ -90,7 +94,7 @@ namespace Assets.scripts
             {
                 togglePause();
             }
-            if (paused)
+            if (Time.timeScale == 0)
             {
                 pauseUiPosition = Mathf.Lerp(pauseUiPosition, UiMoveDistance, Time.unscaledDeltaTime * 10);
                 ShipController.Instance.pauseUi.transform.localPosition = new Vector3(pauseUiPosition, 0, 0);
